@@ -1,0 +1,4 @@
+flannel-backend: wireguard-native
+cluster-cidr: fd00:cafe:42::/56
+service-cidr: fd00:cafe:43::/112
+flannel-ipv6-masq: true

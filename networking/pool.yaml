@@ -1,0 +1,15 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: linode-osa
+spec:
+  addresses:
+    - 2400:8905:e001:11d::/64
+---
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: scaleway-waw
+spec:
+  addresses:
+    - 2001:bc8:1d90:26b6::/64
