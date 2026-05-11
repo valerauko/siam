@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: metallb
+  namespace: argo-cd
+  annotations:
+    argocd.argoproj.io/sync-wave: "24"
+spec:
+  sources:
+    - repoURL: https://metallb.github.io/metallb
+      chart: metallb
+      targetRevision: "*"
+
+      helm:
+        releaseName: metallb
+
+        values: |
+          speaker:
+            frr:
+              enabled: true
+    - repoURL: https://github.com/valerauko/siam.git
+      targetRevision: main
+      path: metallb
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kube-system
+
+  syncPolicy:
+    automated:
+      selfHeal: true

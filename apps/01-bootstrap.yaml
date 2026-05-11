@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bootstrap
+  namespace: argo-cd
+  annotations:
+    argocd.argoproj.io/sync-wave: "01"
+spec:
+  project: system
+  source:
+    repoURL: https://github.com/valerauko/siam.git
+    targetRevision: main
+    path: apps
+
+    directory:
+      recurse: true
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argo-cd
+
+  syncPolicy:
+    automated:
+      selfHeal: true

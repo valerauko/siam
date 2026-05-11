@@ -1,0 +1,43 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-cd
+  namespace: argo-cd
+  annotations:
+    argocd.argoproj.io/sync-wave: "10"
+spec:
+  source:
+    repoURL: https://argoproj.github.io/argo-helm
+    chart: argo-cd
+    targetRevision: "*"
+
+    helm:
+      releaseName: argo-cd
+      values: |
+        global:
+          domain: jason.dekiru.tech
+        crds:
+          install: true
+        server:
+          extraArgs:
+            - "--insecure"
+        repoServer:
+          extraArgs:
+            - "--parallelismlimit=1"
+        configs:
+          params:
+            server.insecure: "true"
+          repositories:
+            docker-registry:
+              url: registry-1.docker.io
+              name: docker-registry
+              enableOCI: "true"
+              type: helm
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argo-cd
+
+  syncPolicy:
+    automated:
+      selfHeal: true
