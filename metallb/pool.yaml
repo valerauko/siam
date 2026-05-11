@@ -5,7 +5,9 @@ metadata:
 spec:
   addresses:
     - 2400:8905:e001:11d::/64
+
 ---
+
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:

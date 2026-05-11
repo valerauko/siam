@@ -1,0 +1,23 @@
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: osa
+spec:
+  ipAddressPools:
+    - linode-osa
+  nodeSelectors:
+    - matchLabels:
+        valerauko.net/cloud: linode
+
+---
+
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: waw
+spec:
+  ipAddressPools:
+    - scaleway-waw
+  nodeSelectors:
+    - matchLabels:
+        valerauko.net/cloud: scaleway
